@@ -61,7 +61,7 @@ export const experiences: Experience[] = [
     id: "exp_shriram",
     title: "Senior Analyst (AI & Analytics)",
     company: "Shriram General Insurance Co. Ltd.",
-    duration: "Jan 2024 - Present",
+    duration: "Jan 2025 - Present",
     location: "Jaipur, India / Hybrid",
     logoType: "shriram",
     points: [
@@ -75,7 +75,7 @@ export const experiences: Experience[] = [
     id: "exp1",
     title: "Agriculture & Climate Tech Consultant (Freelance)",
     company: "Global Agritech & Weather Risk Advisory",
-    duration: "Jul 2023 - Present",
+    duration: "Jul 2023 - Dec 2024",
     location: "Global Remote",
     logoType: "consultant",
     points: [
@@ -154,7 +154,7 @@ export const experiences: Experience[] = [
     id: "exp7",
     title: "Project Scientist",
     company: "UP State Remote Sensing Application Centre (UPRSAC)",
-    duration: "Sep 2013 - Aug 2014",
+    duration: "Sep 2013 - Sep 2014",
     location: "Lucknow, India",
     logoType: "uprsac",
     points: [
