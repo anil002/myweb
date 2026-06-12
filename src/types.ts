@@ -46,6 +46,15 @@ export interface Education {
   duration: string;
 }
 
+export interface BlogPost {
+  id: string;
+  title: string;
+  summary: string;
+  content: string;
+  imageDataUrl?: string;
+  createdAt: string;
+}
+
 export interface Reference {
   id: string;
   name: string;

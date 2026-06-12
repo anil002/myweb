@@ -9,15 +9,18 @@ import Hero from './components/Hero';
 import ProfileSummary from './components/ProfileSummary';
 import ExperienceTimeline from './components/ExperienceTimeline';
 import PublicationsList from './components/PublicationsList';
+import BlogSection from './components/BlogSection';
 import AgritechDemo from './components/AgritechDemo';
 import EducationSkills from './components/EducationSkills';
 import ContactSection from './components/ContactSection';
 import { personalInfo, publications } from './data';
-import { ArrowUp, Award, Compass, FileText } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
+import type { BlogPost } from './types';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('about');
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,7 +28,7 @@ export default function App() {
       setShowScrollTop(window.scrollY > 400);
 
       // Simple intersection observer equivalent for active tab highlighting
-      const sections = ['about', 'experience', 'publications', 'simulator', 'education', 'contact'];
+      const sections = ['about', 'experience', 'publications', 'blog', 'simulator', 'education', 'contact'];
       let currentSection = 'about';
 
       for (const section of sections) {
@@ -45,6 +48,41 @@ export default function App() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    try {
+      const savedPosts = window.localStorage.getItem('scientificBlogPosts');
+      if (savedPosts) {
+        setBlogPosts(JSON.parse(savedPosts));
+        return;
+      }
+    } catch (error) {
+      console.warn('Unable to load saved blog posts', error);
+    }
+
+    setBlogPosts([
+      {
+        id: 'blog-default-1',
+        title: 'Satellite-Based Climate Insights',
+        summary: 'A short scientific post on how remote sensing advances climate resilience.',
+        content:
+          'Explore the latest scientific findings in satellite-enabled agricultural monitoring, including vegetation indices, soil moisture analytics, and climate risk predictions for resilient farming systems.',
+        createdAt: new Date().toISOString(),
+      },
+    ]);
+  }, []);
+
+  const addBlogPost = (post: BlogPost) => {
+    setBlogPosts((prevPosts) => {
+      const nextPosts = [post, ...prevPosts];
+      try {
+        window.localStorage.setItem('scientificBlogPosts', JSON.stringify(nextPosts));
+      } catch (error) {
+        console.warn('Unable to save blog post', error);
+      }
+      return nextPosts;
+    });
+  };
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -69,6 +107,9 @@ export default function App() {
 
         {/* Scholarly publications catalog */}
         <PublicationsList />
+
+        {/* Scientific Blog posts and content creation */}
+        <BlogSection posts={blogPosts} onCreate={addBlogPost} />
 
         {/* Interactive Climate Discomfort & Telemetry Grid Simulator */}
         <AgritechDemo />
@@ -100,6 +141,7 @@ export default function App() {
               <a href={personalInfo.researchgate} target="_blank" rel="noreferrer" id="footer-researchgate-link" className="hover:text-emerald-400 pb-0.5 border-b border-transparent hover:border-emerald-500/30 transition-all font-semibold">ResearchGate</a>
               <a href="#about" className="hover:text-emerald-400 pb-0.5 border-b border-transparent hover:border-emerald-500/30 transition-all">Biography</a>
               <a href="#publications" className="hover:text-emerald-400 pb-0.5 border-b border-transparent hover:border-emerald-500/30 transition-all">Publications ({publications.length})</a>
+              <a href="#blog" className="hover:text-emerald-400 pb-0.5 border-b border-transparent hover:border-emerald-500/30 transition-all">Blog</a>
             </div>
           </div>
         </div>

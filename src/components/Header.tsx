@@ -23,6 +23,7 @@ export default function Header({ activeTab, setActiveTab }: HeaderProps) {
     { id: 'about', label: 'Biography', icon: Info },
     { id: 'experience', label: 'Experience', icon: Briefcase },
     { id: 'publications', label: 'Publications', icon: FileText },
+    { id: 'blog', label: 'Blog', icon: FileText },
     { id: 'simulator', label: 'Climate Simulator', icon: Compass },
     { id: 'education', label: 'Education & Skills', icon: GraduationCap },
     { id: 'contact', label: 'Endorsements & Contact', icon: Landmark },
